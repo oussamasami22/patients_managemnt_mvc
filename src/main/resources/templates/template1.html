@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultrq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.js"></script>
+
+</head>
+<body>
+<!-- A grey horizontal navbar that becomes vertical on small screens -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+    <div class="container-fluid">
+        <!-- Links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/index}">Home</a>
+            </li>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/index}">Disabled</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                    Patients
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/formPatients}">New Patient</a></li>
+                    <li><a class="dropdown-item" th:href="@{/index}">Find Patient</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                    Username
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/formPatients}">LogOut</a></li>
+
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+</nav>
+<section layout:fragment="content1">
+
+</section>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Patients</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="post" th:action="@{save}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input id="name" class="form-control" type="text" name="name" th:value="${patient.name}">
+                        <span th:errors="${patient.name}" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateofbirth" class="form-label">Date of Birth</label>
+                        <input id="dateofbirth" class="form-control" type="date" name="dateofbirth" th:value="${patient.dateofbirth}">
+                        <span th:errors="${patient.dateofbirth}" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input id="sick" class="form-check-input" type="checkbox" name="sick" th:checked="${patient.sick}">
+                        <label for="sick" class="form-check-label">Sick</label>
+                        <span th:errors="${patient.sick}" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="score" class="form-label">Score</label>
+                        <input id="score" class="form-control" type="text" name="score" th:value="${patient.score}">
+                        <span th:errors="${patient.score}" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
