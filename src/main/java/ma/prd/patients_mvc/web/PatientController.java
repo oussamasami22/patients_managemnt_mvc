@@ -1,14 +1,15 @@
 package ma.prd.patients_mvc.web;
 
 import jakarta.validation.Valid;
-import javassist.compiler.ast.Keyword;
 import lombok.AllArgsConstructor;
 import ma.prd.patients_mvc.entites.Patient;
 import ma.prd.patients_mvc.repositories.PatientRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model; // Importing the correct Model class
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PatientController {
     private final PatientRepository patientRepository; //CONNECTER A LA BD
+    private static final Logger logger = LoggerFactory.getLogger(PatientController.class);
 
     @GetMapping(path = "/index")
     public String patients(Model model,
@@ -28,6 +30,7 @@ public class PatientController {
                            @RequestParam(name = "size", defaultValue = "5") int size,
                            @RequestParam(name = "Keyword", defaultValue = "") String Keyword)
     {
+        logger.debug("Index endpoint accessed with page: {}, size: {}, Keyword: {}", page, size, Keyword);
         Page<Patient> pagePatients = patientRepository.findByNameContains(Keyword, PageRequest.of(page, size));
         model.addAttribute("ListPatients", pagePatients.getContent());
         model.addAttribute("pages", new int[pagePatients.getTotalPages()]);
