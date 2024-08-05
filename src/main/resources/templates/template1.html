@@ -44,6 +44,19 @@ xmlns:layout="http://www.ultrq.net.nz/thymeleaf/layout">
             </li>
 
         </ul>
+        <ul class="navbar-nav float-end">
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                    <span th:text="${#authentication.name}"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" >Logout</a></li>
+                    <li><a class="dropdown-item" >Profile</a></li>
+                </ul>
+
+            </li>
+        </ul>
     </div>
 
 </nav>
