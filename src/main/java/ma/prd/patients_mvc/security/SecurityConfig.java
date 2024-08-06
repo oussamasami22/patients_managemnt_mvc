@@ -11,17 +11,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
- @Autowired
- private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-        String pwd=passwordEncoder.encode("12345");
+        String pwd = passwordEncoder.encode("12345");
         System.out.println(pwd);
         UserDetails user1 = User.withUsername("user1")
                 .password(pwd)
@@ -41,14 +39,24 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(user1, admin, user2);
     }
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/login", "/notAuthorized").permitAll()
+                        .requestMatchers("/delete/**", "/save/**", "/editPatient/**", "/formPatients/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
+                ) // we can add admin/** and edite the mapping in controller (for exemple admin/delete) and it will working
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/login")
+                        .permitAll()
                 )
-                .formLogin(withDefaults());
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling.accessDeniedHandler((request, response, accessDeniedException) ->
+                                response.sendRedirect("/notAuthorized")
+                        )
+                );
+
         return http.build();
     }
 }

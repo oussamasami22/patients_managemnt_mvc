@@ -38,58 +38,51 @@ public class PatientController {
         model.addAttribute("Keyword",Keyword);
         return "patients";
     }
+
     @GetMapping("/delete")
-    public String delete(Long id,String Keyword,int page){
+    public String delete(Long id, String Keyword, int page) {
         patientRepository.deleteById(id);
-        return "redirect:/index?page="+page+"&Keyword="+Keyword;
+        return "redirect:/index?page=" + page + "&Keyword=" + Keyword;
     }
+
     @GetMapping("/")
-    public String  home(){
+    public String home() {
         return "redirect:/index";
     }
+
     @GetMapping("/patients")
     @ResponseBody
-     public List<Patient> listPatients(){
+    public List<Patient> listPatients() {
         return patientRepository.findAll();
-     }
-     @GetMapping("/formPatients")
-     public String formPatient(Model model){
-        model.addAttribute("patient",new Patient());
+    }
+
+    @GetMapping("/formPatients")
+    public String formPatient(Model model) {
+        model.addAttribute("patient", new Patient());
         return "formPatients";
-     }
-     @PostMapping(path ="/save")
-    public String save(Model model, @Valid Patient patient, BindingResult bindingResult,@RequestParam(defaultValue = "0") int page,
-                       @RequestParam(defaultValue ="")String Keyword){
-        if(bindingResult.hasErrors()) return "formPatients";
+    }
+
+    @PostMapping(path = "/save")
+    public String save(Model model, @Valid Patient patient, BindingResult bindingResult, @RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "") String Keyword) {
+        if (bindingResult.hasErrors()) return "formPatients";
         patientRepository.save(patient);
-        return "redirect:/index?page"+page+"&Keyword="+Keyword;
-     }
+        return "redirect:/index?page=" + page + "&Keyword=" + Keyword;
+    }
+
     @GetMapping("/editPatient")
-    public String editPatient(Model model,Long id,String Keyword,int page) {
-   Patient patient=patientRepository.findById(id).orElse(null);
-if(patient==null) throw new RuntimeException("Patient Not Found");
-        model.addAttribute("patient",patient);
-        model.addAttribute("page",page);
-        model.addAttribute("Keyword",Keyword);
+    public String editPatient(Model model, Long id, String Keyword, int page) {
+        Patient patient = patientRepository.findById(id).orElse(null);
+        if (patient == null) throw new RuntimeException("Patient Not Found");
+        model.addAttribute("patient", patient);
+        model.addAttribute("page", page);
+        model.addAttribute("Keyword", Keyword);
         return "editPatient";
     }
+
+    // Add login method
+    @GetMapping("/login")
+    public String login() {
+        return "login"; // This will return the login.html page
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

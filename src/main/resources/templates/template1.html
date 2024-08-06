@@ -27,23 +27,12 @@ xmlns:layout="http://www.ultrq.net.nz/thymeleaf/layout">
                     Patients
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" th:href="@{/formPatients}">New Patient</a></li>
+                    <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a class="dropdown-item" th:href="@{/formPatients}">New Patient</a></li>
                     <li><a class="dropdown-item" th:href="@{/index}">Find Patient</a></li>
                 </ul>
             </li>
         </ul>
-        <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                    Username
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" th:href="@{/login}">LogOut</a></li>
 
-                </ul>
-            </li>
-
-        </ul>
         <ul class="navbar-nav float-end">
 
             <li class="nav-item dropdown">
@@ -51,7 +40,7 @@ xmlns:layout="http://www.ultrq.net.nz/thymeleaf/layout">
                     <span th:text="${#authentication.name}"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" >Logout</a></li>
+                    <li><a class="dropdown-item"  th:href="@{/login}">Logout</a></li>
                     <li><a class="dropdown-item" >Profile</a></li>
                 </ul>
 
